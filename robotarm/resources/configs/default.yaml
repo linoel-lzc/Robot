@@ -1,0 +1,101 @@
+calibration:
+  # Three-point calibration for affine transformation (supports rotation)
+  # Choose 3 non-collinear points to form a triangle
+
+  # Calibration Point 1
+  point1:
+    name: "Key_Green"
+    # Actual coordinates in robot coordinate system (X, Y)
+    robot_coords: [47, 20.375]
+
+  # Calibration Point 2
+  point2:
+    name: "Key_Red"
+    # Actual coordinates in robot coordinate system (X, Y)
+    robot_coords: [47, 52.625]
+
+  # Calibration Point 3 (required for rotation support)
+  point3:
+    name: "Key_0"
+    robot_coords: [16, 36.5]
+
+
+# Click Parameters Configuration
+click_params:
+  press_depth: 3  # Press depth (Z-axis)
+  press_duration: 0.4 # Press hold duration (seconds)
+  lift_height: 0   # Lift height (Z-axis)
+
+# Speed Configuration (mm/min), Range 100-10000, smaller value is slower
+speed:
+  xy: 10000  # X/Y axis horizontal movement speed (can be faster)
+  z: 1000   # Z axis press/lift speed (suggest slower, gentler)
+
+# Device Name (system auto-loads built-in layout: robotarm/resources/layouts/<device>.yaml)
+device: "jupiter"
+
+# Video Processing Configuration
+video_processing:
+  rotate: 270 # Video rotation angle: 0, 90, 180, 270
+
+  # Color match threshold (Euclidean distance in RGB space)
+  color_threshold: 50
+
+  # Screen area correction configuration
+  screen_correction:
+    # Reference frame index:
+    #   -1: Use last frame to detect once (suitable for fixed camera)
+    #    0: Detect per frame (suitable for moving camera/screen, slower performance)
+    #   >0: Use specified frame to detect once
+    reference_frame: -1
+    output_ratio: [3, 4]  # Output rectangle aspect ratio
+    output_height: 640    # Output height (width calculated automatically based on ratio)
+
+# Video Capture Configuration
+capture:
+  # Backend selection: "opencv" (capture.py), "ffmpeg" (capture_60.py), "pipe" (capture_pipe.py)
+  backend: "opencv"
+
+  # Camera Name
+  # macOS: Use avfoundation device name, e.g. "Cisco Desk Camera 4K"
+  # Linux: Use device path, e.g. "/dev/video0"
+  # Windows: Use DirectShow device name
+  camera_name: "Cisco Desk Camera 4K"
+
+  # Video Resolution
+  width: 1920
+  height: 1080
+
+  # Target Frame Rate (Automatically downgrades to 30fps if hardware doesn't support)
+  fps: 30
+
+  # Pixel Format (Camera raw format)
+  pixel_format: "uyvy422"
+
+  # Output Directory
+  output_dir: "recording"
+
+  # Marker Region Configuration (Draw/Detect color square in top-left corner of frame)
+  marker_region:
+    x: 0
+    y: 0
+    width: 100
+    height: 100
+
+# Visual Language Model Configuration
+# Supports environment variables (Priority higher than config file):
+#   VLM_BASE_URL - VLM Service Address
+#   VLM_API_KEY  - API Key
+vlm:
+  base_url: "http://dtg-walle-dev3:3000/v1/"  # Or set env var VLM_BASE_URL
+  api_key: "sk-PsUVfigypIhZPJJkBa44Cd9f20424cF692DaEe53677421B3"   # Or set env var VLM_API_KEY
+  model: "ministral-3-8b-instruct-2512"
+  temperature: 0.0
+  system_prompt: |
+    You are a visual assistant.
+    You must ONLY return a valid JSON object.
+    Try your best to observe the image and answer the question.
+    Do NOT use markdown code blocks (like ```json).
+    Do NOT include any explanations or other text.
+    The JSON object must contain a single key "result" with a boolean value.
+    Example: {"result": false}

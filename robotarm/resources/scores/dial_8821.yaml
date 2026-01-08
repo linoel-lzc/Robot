@@ -1,0 +1,122 @@
+# 按键序列配置文件
+# 用于 performer.py 自动执行按键操作
+
+# 序列名称（用于日志显示）
+name: "拨号 8890 测试"
+
+# 序列描述
+description: |
+  1. 按下红键
+  2. 按下绿键
+  3. 拨号 8890
+  4. 再按绿键
+  5. 按红键两次
+  6. 回到初始位置
+
+# 引用外部配置文件
+config_file: "configs/default.yaml"
+
+# 覆盖配置（会合并到 config_file 的配置中）
+config:
+  calibration:
+    point1:
+      name: "Key_Green"
+      robot_coords: [47, 20.375]
+    point2:
+      name: "Key_Red"
+      robot_coords: [47, 52.625]
+    point3:
+      name: "Key_0"
+      robot_coords: [16, 36.5]
+  click_params:
+    press_depth: 3
+    press_duration: 0.4
+    lift_height: 0
+
+# 录制配置
+recording:
+  prefix: "8821_test"
+
+# Observer 配置 (用于视频分析)
+observer:
+  save_frames: true      # 保存原始帧到 frames 目录
+  save_corrected: true   # 保存矫正后的帧到 images 目录
+  compare: true           # 与动作序列进行对比
+  debug: false            # 调试模式，输出颜色检测信息
+
+# ============================================================
+# 动作序列
+# ============================================================
+# 每个动作包含：
+#   type: 动作类型 (button/home/lift/wait)
+#   name: 按键名称 (仅 button 类型需要)
+#   wait_before: 执行前等待时间（秒），默认 0
+#   wait_after: 执行后等待时间（秒），默认 1
+#   comment: 可选的注释说明
+
+actions:
+  # 步骤 0: 按下红键
+  - type: button
+    name: Key_Red
+    wait_before: 0.5
+    wait_after: 1
+    comment: "步骤 0: 按下红键"
+
+  # 步骤 1: 按下绿键
+  - type: button
+    name: Key_Green
+    wait_after: 1
+    comment: "步骤 1: 按下绿键"
+    ask: "图像中是否有一个没有输入的文本框？"
+
+  # 步骤 2: 拨号 8890
+  - type: button
+    name: Key_8
+    wait_after: 1
+    comment: "拨号: 8"
+    ask: "图像中是否有一个包括输入了数字‘8’的文本框？"
+
+  - type: button
+    name: Key_8
+    wait_after: 1
+    comment: "拨号: 8"
+    ask: "图像中是否有一个包括输入了数字‘88’的文本框？"
+
+  - type: button
+    name: Key_9
+    wait_after: 1
+    comment: "拨号: 9"
+    ask: "图像中是否有一个包括输入了数字‘889’的文本框？"
+
+  - type: button
+    name: Key_0
+    wait_after: 1
+    comment: "拨号: 0"
+    ask: "图像中是否有一个包括输入了数字‘8890’的文本框？"
+
+  # 步骤 3: 再按绿键
+  - type: button
+    name: Key_Green
+    wait_after: 1
+    comment: "步骤 3: 再次按下绿键"
+    # ask: "图像中是否没有数字'8890'？"
+
+  # 步骤 4: 按红键两次
+  - type: button
+    name: Key_Red
+    wait_before: 3
+    wait_after: 1
+    comment: "步骤 4: 按下红键 (第一次)"
+
+  - type: button
+    name: Key_Red
+    wait_after: 1
+    comment: "步骤 4: 按下红键 (第二次)"
+
+  # 步骤 5: 回到初始位置
+  - type: lift
+    comment: "确保 Z 轴抬起"
+
+  - type: home
+    comment: "步骤 5: 回到初始位置"
+

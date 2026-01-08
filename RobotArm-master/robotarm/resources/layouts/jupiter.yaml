@@ -1,0 +1,228 @@
+device:
+  name: RobotArm Remote Control
+  unit: mm
+  origin: "Center of Circular Direction Key (0,0)"
+  
+  # Color set for capture marking (BGR format)
+  colors:
+    red: [0, 0, 255]
+    green: [0, 255, 0]
+    blue: [255, 0, 0]
+    yellow: [0, 255, 255]
+    cyan: [255, 255, 0]
+    magenta: [255, 0, 255]
+    orange: [0, 165, 255]
+    purple: [128, 0, 128]
+    pink: [255, 192, 203]
+    white: [255, 255, 255]
+    lime: [0, 255, 128]
+    turquoise: [208, 224, 64]
+    navy: [128, 0, 0]
+    maroon: [0, 0, 128]
+    olive: [0, 128, 128]
+    teal: [128, 128, 0]
+    coral: [80, 127, 255]
+  
+  buttons:
+    # Circular Direction Key (Logically split into 5 keys)
+    # Overall center at (0,0), Diameter approx 10mm
+    - name: D_Pad_Center
+      type: circular
+      center: [0.0, 0.0]
+      diameter: 3.0
+      bbox: [-1.5, -1.5, 1.5, 1.5]
+      actions: ["click"]
+      capture:
+        mark_on: "lift"
+        color: cyan
+    - name: D_Pad_Up
+      type: circular
+      center: [0.0, -7.55]
+      diameter: 3.0
+      bbox: [-1.5, -9.05, 1.5, -6.05]
+      actions: ["up"]
+      capture:
+        mark_on: "press"
+        color: white
+    - name: D_Pad_Down
+      type: circular
+      center: [0.0, 7.55]
+      diameter: 3.0
+      bbox: [-1.5, 6.05, 1.5, 9.05]
+      actions: ["down"]
+      capture:
+        mark_on: "press"
+        color: yellow
+    - name: D_Pad_Left
+      type: circular
+      center: [-7.55, 0.0]
+      diameter: 3.0
+      bbox: [-9.05, -1.5, -6.05, 1.5]
+      actions: ["left"]
+      capture:
+        mark_on: "press"
+        color: lime
+    - name: D_Pad_Right
+      type: circular
+      center: [7.55, 0.0]
+      diameter: 3.0
+      bbox: [6.05, -1.5, 9.05, 1.5]
+      actions: ["right"]
+      capture:
+        mark_on: "press"
+        color: coral
+    # Rectangular Key Grid (16 keys)
+    # Key Size: Width 4mm, Height 4mm
+    # BBox Calc: [center_x - 2, center_y - 2, center_x + 2, center_y + 2]
+    
+    # Row 1 (Y = -4.33)
+    - name: Key_Left
+      type: rectangular
+      center: [-16.125, -4.33]
+      width: 4.0
+      height: 4.0
+      bbox: [-18.125, -6.33, -14.125, -2.33]
+      capture:
+        mark_on: "lift"
+        color: purple
+      
+    - name: Key_Right
+      type: rectangular
+      center: [16.125, -4.33]
+      width: 4.0
+      height: 4.0
+      bbox: [14.125, -6.33, 18.125, -2.33]
+      capture:
+        mark_on: "lift"
+        color: orange
+    # Row 2 (Y = 4.42)
+    - name: Key_Green
+      type: rectangular
+      center: [-16.125, 4.42] 
+      width: 4.0
+      height: 4.0
+      bbox: [-18.125, 2.42, -14.125, 6.42]
+      capture:
+        mark_on: "lift"
+        color: green
+    - name: Key_Red
+      type: rectangular
+      center: [16.125, 4.42] 
+      width: 4.0
+      height: 4.0
+      bbox: [14.125, 2.42, 18.125, 6.42]
+      capture:
+        mark_on: "lift"
+        color: red
+    # Row 3 (Y = 13.5)
+    - name: Key_1
+      type: rectangular
+      center: [-15.75, 13.5]
+      width: 4.0
+      height: 4.0
+      bbox: [-17.75, 11.5, -13.75, 15.5]
+      capture:
+        mark_on: "press"
+        color: blue
+    - name: Key_2
+      type: rectangular
+      center: [0.0, 13.5]
+      width: 4.0
+      height: 4.0
+      bbox: [-2.0, 11.5, 2.0, 15.5]
+      capture:
+        mark_on: "press"
+        color: magenta
+    - name: Key_3
+      type: rectangular
+      center: [15.75, 13.5]
+      width: 4.0
+      height: 4.0
+      bbox: [13.75, 11.5, 17.75, 15.5]
+      capture:
+        mark_on: "press"
+        color: lime
+    # Row 4 (Y = 20.8)
+    - name: Key_4
+      type: rectangular
+      center: [-15.75, 20.8]
+      width: 4.0
+      height: 4.0
+      bbox: [-17.75, 18.8, -13.75, 22.8]
+      capture:
+        mark_on: "press"
+        color: turquoise
+    - name: Key_5
+      type: rectangular
+      center: [0.0, 20.8]
+      width: 4.0
+      height: 4.0
+      bbox: [-2.0, 18.8, 2.0, 22.8]
+      capture:
+        mark_on: "press"
+        color: navy
+    - name: Key_6
+      type: rectangular
+      center: [15.75, 20.8]
+      width: 4.0
+      height: 4.0
+      bbox: [13.75, 18.8, 17.75, 22.8]
+      capture:
+        mark_on: "press"
+        color: maroon
+    # Row 5 (Y = 28.1)
+    - name: Key_7
+      type: rectangular
+      center: [-15.75, 28.1]
+      width: 4.0
+      height: 4.0
+      bbox: [-17.75, 26.1, -13.75, 30.1]
+      capture:
+        mark_on: "press"
+        color: olive
+    - name: Key_8
+      type: rectangular
+      center: [0.0, 28.1]
+      width: 4.0
+      height: 4.0
+      bbox: [-2.0, 26.1, 2.0, 30.1]
+      capture:
+        mark_on: "press"
+        color: teal
+    - name: Key_9
+      type: rectangular
+      center: [15.75, 28.1]
+      width: 4.0
+      height: 4.0
+      bbox: [13.75, 26.1, 17.75, 30.1]
+      capture:
+        mark_on: "press"
+        color: coral
+    # Row 6 (Y = 35.4)
+    - name: Key_Star
+      type: rectangular
+      center: [-15.75, 35.4]
+      width: 4.0
+      height: 4.0
+      bbox: [-17.75, 33.4, -13.75, 37.4]
+      capture:
+        mark_on: "press"
+        color: white
+    - name: Key_0
+      type: rectangular
+      center: [0.0, 35.4]
+      width: 4.0
+      height: 4.0
+      bbox: [-2.0, 33.4, 2.0, 37.4]
+      capture:
+        mark_on: "press"
+        color: yellow
+    - name: Key_Pound
+      type: rectangular
+      center: [15.75, 35.4]
+      width: 4.0
+      height: 4.0
+      bbox: [13.75, 33.4, 17.75, 37.4]
+      capture:
+        mark_on: "press"
+        color: pink

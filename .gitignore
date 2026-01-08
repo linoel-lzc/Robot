@@ -1,0 +1,33 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+.pytest_cache/
+
+# Virtual environments
+.venv
+env/
+venv/
+
+# IDE
+.idea/
+.vscode/
+.cursor/
+
+# OS generated files
+.DS_Store
+
+# Project specific output
+recording/
+frames/
+images/
+logs/
+*_observer.log
+*_performer.log
+
+# Temporary files
+*.bak
+*.swp
