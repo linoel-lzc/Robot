@@ -2,7 +2,7 @@
 
 RobotArm is a Python package for controlling a robotic arm to execute key sequences and performing visual verification.
 
-Repository: `git@sqbu-github.cisco.com:Walle/RobotArm.git`
+Repository: `git@github.com:linoel-lzc/Robot.git`
 
 ## Features
 
